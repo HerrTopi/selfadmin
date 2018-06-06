@@ -1,0 +1,16 @@
+todo
+
+
+
+"CM097":"Bp.XIII.Pozsonyi út 77-79.",			
+"C16J0":"Törökbálint ,Torbágy u. 1. számítógép kp  3207 hrsz",			
+"2471C1II":"Baracska,  számítógép központ 0102/680101/7  hrsz.",			
+"MH001":"Bp.IX Lechner Ödön stny. 1.",			
+"490L":"Zalaegerszeg,Kossuth L. u. 8.",			
+"452L":"Szombathely,Kőszegi u.10.",			
+"474F":"Miskolc,Széchenyi utca 3-9.",			
+"069L":"Bp.IX.Lechner Ödön fasor 9. "H" - Épület",	
+"8221":"Bp.IX.Lechner Ödön fasor 9. "K" - Épület"			
+
+felh: -email
+fel Leltar4575
