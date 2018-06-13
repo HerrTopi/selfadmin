@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { config } from "../config";
+var nanoajax = require('nanoajax')
 
 class Example extends Component {
   constructor(props) {
@@ -14,23 +15,22 @@ class Example extends Component {
   }
   initComponent() {
     const me = this;
-    fetch(config.url + "rest/getitemsbyuserid", {
-      method: "post",
-      mode: "cors",
+    nanoajax.ajax({
+      url: config.url + "rest/getitemsbyuserid",
+      cors: true,
       headers: {
         Accept: "application/json, text/plain, */*",
         "Content-Type": "application/json",
         'Cache-Control': 'no-cache'
       },
+      method: 'POST',
       body: JSON.stringify({ user: this.state.user.vipcode })
-    })
-      .then(function (response) {
-        return response.json();
+    },
+      function (code, responseText) {
+        me.setState({ items: JSON.parse(responseText) })
       })
-      .then(function (data) {
-        me.setState({ items: data })
-      });
   }
+
 
 
   newItem() {
@@ -42,72 +42,71 @@ class Example extends Component {
       FIELD6: me.megnevezes2.value,
       FIELD7: me.gyariszam.value
     }
-    fetch(config.url + "rest/savenewitem", {
-      method: "post",
-      mode: "cors",
+    nanoajax.ajax({
+      url: config.url + "rest/savenewitem",
+      cors: true,
       headers: {
         Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Cache-Control': 'no-cache'
       },
+      method: 'POST',
       body: JSON.stringify(newItem)
-    })
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
+    },
+      function (code, responseText) {
         me.initComponent()
         me.leltariszam.value = ""
         me.megnevezes.value = ""
         me.megnevezes2.value = ""
         me.gyariszam.value = ""
-        console.log(data)
-      });
+      })
 
     console.log(newItem)
   }
+
+
   deleteItem(id) {
     const me = this;
 
-    fetch(config.url + "rest/deleteitem", {
-      method: "post",
-      mode: "cors",
+    nanoajax.ajax({
+      url: config.url + "rest/deleteitem",
+      cors: true,
       headers: {
         Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Cache-Control': 'no-cache'
       },
+      method: 'POST',
       body: JSON.stringify({ id })
-    })
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
+    },
+      function (code, responseText) {
         me.initComponent()
-      });
+      })
   }
+
   login() {
     const me = this;
 
-    fetch(config.url + "rest/login", {
-      method: "post",
-      mode: "cors",
+    nanoajax.ajax({
+      url: config.url + "rest/login",
+      cors: true,
       headers: {
         Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Cache-Control': 'no-cache'
       },
+      method: 'POST',
       body: JSON.stringify({ vipcode: me.vip.value, password: me.password.value })
-    })
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        console.log(data)
+    },
+      function (code, responseText) {
+        const data = JSON.parse(responseText);
         if (data) {
           me.setState({ user: data, declared: false })
           me.initComponent()
         } else {
           me.setState({ declared: true })
         }
-      });
+      })
   }
   finalize() {
     if (!this.confirm.checked) {
@@ -126,24 +125,23 @@ class Example extends Component {
         password: this.passwordagain.value
       }
 
-      fetch(config.url + "rest/declare", {
-        method: "post",
-        mode: "cors",
-        credentials: "same-origin",
+      nanoajax.ajax({
+        url: config.url + "rest/declare",
+        cors: true,
         headers: {
           Accept: "application/json, text/plain, */*",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          'Cache-Control': 'no-cache'
         },
+        method: 'POST',
         body: JSON.stringify(declareData)
-      })
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
+      },
+        function (code, responseText) {
           me.setState({ declared: true });
         })
     }
   }
+
   render() {
     return (
       <div className="container-fluid">

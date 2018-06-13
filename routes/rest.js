@@ -41,7 +41,6 @@ const user = connection.model("selfuseradmin", userSchema);
 //example post request with find query
 router.post("/getitemsbyuserid", function (req, res, next) {
   const data = req.body;
-
   selfadmin.find({ FIELD1: data.user }, function (err, response) {
     res.json(response);
   });
