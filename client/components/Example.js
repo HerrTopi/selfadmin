@@ -87,6 +87,7 @@ class Example extends Component {
   login() {
     const me = this;
 
+    me.setState({ message: "" })
     nanoajax.ajax({
       url: config.url + "rest/login",
       cors: true,
@@ -100,11 +101,14 @@ class Example extends Component {
     },
       function (code, responseText) {
         const data = JSON.parse(responseText);
-        if (data) {
+        console.log(data)
+        if (data === "declared") {
+          me.setState({ declared: true })
+        } else if (!data) {
+          me.setState({ message: "Hibás adatok, kérlek próbáld meg újra!" })
+        } else {
           me.setState({ user: data, declared: false })
           me.initComponent()
-        } else {
-          me.setState({ declared: true })
         }
       })
   }
@@ -137,7 +141,14 @@ class Example extends Component {
         body: JSON.stringify(declareData)
       },
         function (code, responseText) {
-          me.setState({ declared: true });
+          const data = JSON.parse(responseText);
+          me.setState({ message: "" });
+          if (data) {
+            me.setState({ declared: true });
+          } else {
+            me.setState({ message: "hibás jelszó" });
+          }
+
         })
     }
   }
@@ -192,13 +203,35 @@ class Example extends Component {
               </tr>
             </tbody>
           </table>
+
+
+
+          Kérlek ha ezeket az eszközöket te használod a sor elején lévő négyzetbe jelöld, amennyiben van más eszköz ami nincs felsorolva kérlek új sorként vedd fel.
+          Kötelező adatok amiket meg kell adnod új eszköz felvétele esetén: <br /><br />
+          <ul>
+            <li>Leltári szám</li>
+            <li>Megnevezés</li>
+            <li>Gyári szám</li>
+          </ul><br /><br />
+          Ha olyan tételt látsz, ami a listádban szerepel, de nem te használod akkor a mezőt hagyd üresen.
+           A nyilatkozat elfogadása és a jelszó ismételt megadása után tudod leadni a bevallásod.
+
+<br /><br /><br />
+
+
+
+
+
+
+
+
           <input type="checkbox" ref={confirm => {
             this.confirm = confirm;
-          }} />   Nyilatkozom, hogy ...
-        <br />
+          }} /> Nyilatkozom, hogy a megadott adatok helyesek
+          <br />
           Jelszó megerősítése: <input type="text" ref={input => {
             this.passwordagain = input;
-          }} />
+          }} />{" "}
           <button className="btn btn-primary" onClick={_ => {
             this.finalize()
           }} >Nyilatkozat leadása</button>

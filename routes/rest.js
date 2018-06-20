@@ -109,13 +109,15 @@ router.post("/login", function (req, res, next) {
   user.find({ vipcode: data.vipcode, password: data.password }, function (err, response) {
     if (response.length === 1) {
       if (response && response[0] && response[0].done) {
-        res.json(false);
+        res.json("declared");
       } else {
         res.json({
           vipcode: response[0].vipcode,
           name: response[0].name
         });
       }
+    } else {
+      res.json(false);
     }
 
   });
@@ -154,6 +156,8 @@ router.post("/declare", function (req, res, next) {
           res.json(true);
         }
       );
+    } else {
+      res.json(false);
     }
 
   });
