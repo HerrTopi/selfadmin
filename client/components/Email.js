@@ -78,7 +78,7 @@ class Email extends Component {
       <br>
       <h4>Jelszó:${val.password}</h4>`
       }
-      //this.send(JSON.stringify(body))
+      this.send(JSON.stringify(body))
     })
   }
   render() {
