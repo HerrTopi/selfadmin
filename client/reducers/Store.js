@@ -1,4 +1,5 @@
 import { fromJS } from "immutable";
 export const initialState = fromJS({
-  storeData: "initial data"
+  storeData: "initial data",
+  vipcode: ""
 });

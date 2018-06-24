@@ -5,7 +5,7 @@ import { changeStoreData } from "../actions/actions";
 const mapStateToProps = state => {
   console.log(state.get("storeData"));
   return {
-    storeData: state.get("storeData")
+    vipcode: state.get("storeData")
   };
 };
 

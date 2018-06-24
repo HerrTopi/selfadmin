@@ -167,4 +167,38 @@ router.post("/test/:id", function (req, res, next) {
   const id = req.params.id;
   res.json(id);
 });
+
+
+//get declared, undeclared data
+router.get("/donestat", function (req, res, next) {
+  user.count({ done: true }, function (err, done) {
+    user.count({ done: false }, function (err, notDone) {
+      res.json({
+        done,
+        notDone
+      })
+    })
+  })
+});
+
+
+//get declared, undeclared data
+router.post("/userbyvipcode", function (req, res, next) {
+  const data = req.body;
+  user.find({ vipcode: data.vipcode }, function (err, response) {
+    if (response.length === 1) {
+      res.json({
+        vipcode: response[0].vipcode,
+        name: response[0].name,
+        done: response[0].done
+      });
+    } else {
+      res.json(false);
+    }
+
+  });
+});
+
+
+
 module.exports = router;

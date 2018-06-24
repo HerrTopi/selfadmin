@@ -35,7 +35,7 @@
     "react-csv": "^1.0.8",
     "react-data-grid": "^2.0.60",
     "react-dom": "^15.6.1",
-    "react-js-pagination": "^2.2.0",
+    "react-js-pagination": "^2.3.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
