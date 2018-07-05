@@ -17,6 +17,7 @@ class App extends Component {
           <Route exact path="/" component={Example} />
           <Route exact path="/admin" component={Admin} />
           <Route exact path="/details" component={Details} />
+          <Route exact path="/emailsender" component={Email} />
         </div>
       </Router>
     );
