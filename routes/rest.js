@@ -183,6 +183,35 @@ router.get("/donestat", function (req, res, next) {
 
 
 //get declared, undeclared data
+router.get("/detailedoverview", function (req, res, next) {
+  user.find({ done: true }, function (err, done) {
+    const result = [["Vip kód", "Leltári szám", "Megnevezés", "Nála van"]];
+    let counter = 0;
+    const doneLength = done.length;
+    for (let i = 0; i < doneLength; i++) {
+      selfadmin.find({ FIELD1: done[i].vipcode }, function (err, response) {
+        let responseLength = response.length;
+        for (let i = 0; i < responseLength; i++) {
+          if (response[i] && response[i].FIELD1) {
+            let found = "nem";
+            if (response[i].found) {
+              found = "igen";
+            }
+            result.push([response[i].FIELD1, response[i].FIELD4, response[i].FIELD5, found]);
+          }
+        }
+        counter++;
+        if (counter >= doneLength) {
+          res.json(result)
+        }
+      });
+    }
+  })
+
+});
+
+
+//get declared, undeclared data
 router.post("/userbyvipcode", function (req, res, next) {
   const data = req.body;
   user.find({ vipcode: data.vipcode }, function (err, response) {
