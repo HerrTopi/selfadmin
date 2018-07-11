@@ -82,15 +82,15 @@ class Email extends Component {
     })
   }
 
-  sendCustom(){
+  sendCustom() {
     const body = {
       "sender": { "name": "Bors István", "email": "istvan.bors@marketingdata.hu" },
       "sender.email": "istvan.bors@marketingdata.hu",
-      "to": [{ "name": "Baksa Zsolt", "email": "zsolt.baksa@raiffeisen.hu" }],
+      "to": [{ "name": "Czibere Veronika", "email": "vczibere@raiffeisen.hu" }],
       "replyTo.email": "istvan.bors@marketingdata.hu",
       "subject": "Önbevalló felület adatok",
       "htmlContent":
-        `<h3>Kedves Baksa Zsolt! </h3>
+        `<h3>Kedves Czibere Veronika! </h3>
       <br>
     A  Raiffeisen Bank Zrt. 2018-as tárgyi eszköz leltára során a személyi használatú eszközök felvétele önbevallás alapján történik.
     Az önbevallás határideje: 2018.06.29. <br>
