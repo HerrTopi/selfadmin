@@ -142,7 +142,7 @@ router.post("/declare", function (req, res, next) {
     if (response.length === 1) {
       for (let key in data.confirmedItems) {
         selfadmin.findOneAndUpdate(
-          { FIELD1: data.user },
+          { id: key },
           { found: data.confirmedItems[key] },
           { upsert: true },
           function (err, doc) { console.log(key, data.confirmedItems[key]) }

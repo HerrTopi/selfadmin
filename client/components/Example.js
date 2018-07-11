@@ -128,7 +128,6 @@ class Example extends Component {
         user: this.state.user.vipcode,
         password: this.passwordagain.value
       }
-
       nanoajax.ajax({
         url: config.url + "rest/declare",
         cors: true,
