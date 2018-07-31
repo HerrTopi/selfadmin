@@ -117,7 +117,18 @@ class Email extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <button className="btn btn-primary" onClick={_ => this.sendCustom()} > SEND Custom </button>
+        From: <input type="text" ref={from => {
+          this.from = from;
+        }} /> <br /><br />
+        To: <input type="text" ref={to => {
+          this.to = to;
+        }} />
+        <br /><br />
+        <br /><br />
+        <br /><br />
+        <br /><br />
+
+        <button className="btn btn-primary" onClick={_ => this.getUsers()} > SEND </button>
       </div>
     );
   }
