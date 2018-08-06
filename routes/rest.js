@@ -181,6 +181,14 @@ router.get("/donestat", function (req, res, next) {
   })
 });
 
+//get declared, undeclared data
+router.get("/notdoneppl", function (req, res, next) {
+  user.find({ done: false }, { email: 1, _id: 0 }, function (err, notDone) {
+
+    res.json(notDone.map(notD => notD.email).join(', '))
+  })
+});
+
 
 //get declared, undeclared data
 router.get("/detailedoverview", function (req, res, next) {

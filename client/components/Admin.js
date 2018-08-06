@@ -6,6 +6,8 @@ import CustomTable from "../containers/CustomTableContainter";
 import { CSVLink, CSVDownload } from "react-csv";
 var nanoajax = require('nanoajax')
 
+const docWindow = window;
+
 class Admin extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +17,8 @@ class Admin extends Component {
         done: 0,
         notDone: 0
       },
-      overview: []
+      overview: [],
+      notdoneppl: []
     };
   }
   componentDidMount() {
@@ -65,7 +68,22 @@ class Admin extends Component {
           stat: data
         });
       });
-
+    //notdoneppl
+    //notdoneppl
+    nanoajax.ajax({
+      url: config.url + "rest/notdoneppl",
+      cors: true,
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        'Cache-Control': 'no-cache'
+      },
+      method: 'GET'
+    },
+      function (code, notdoneppl) {
+        const data = JSON.parse(notdoneppl);
+        me.setState({ notdoneppl })
+      })
     //get detailed excel
     nanoajax.ajax({
       url: config.url + "rest/detailedoverview",
@@ -87,6 +105,10 @@ class Admin extends Component {
   }
   getStateData() {
     return {}
+  }
+  copyText() {
+    debugger;
+    docWindow.copy(this.state.notdoneppl)
   }
   render() {
     return (
@@ -115,6 +137,14 @@ class Admin extends Component {
           target="_self">
           Részletes kimutatás
           </CSVLink>}
+        {this.state.notdoneppl &&
+          <CSVLink
+            className="btn btn-primary"
+            data={this.state.notdoneppl}
+            separator={";"}
+            target="_self">
+            Nem nyilatkoztak
+        </CSVLink>}
       </div>
     );
   }
