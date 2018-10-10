@@ -131,6 +131,7 @@ router.get("/allitems", function (req, res, next) {
 });
 //example post request with find query
 router.get("/allusers", function (req, res, next) {
+  console.log("gettin'");
   user.find({}, function (err, response) {
     res.json(response);
   });
@@ -186,6 +187,25 @@ router.get("/notdoneppl", function (req, res, next) {
   user.find({ done: false }, { email: 1, _id: 0 }, function (err, notDone) {
 
     res.json(notDone.map(notD => notD.email).join(', '))
+  })
+});
+//get declared, undeclared data
+router.post("/userlistbycode", function (req, res, next) {
+  const { codes } = req.body;
+  let counter = codes.length;
+  console.log(`code number: ${counter}`)
+  let result = []
+  codes.forEach((code) => {
+    user.find({ vipcode: code }, function (err, found) {
+      counter--;
+      if (found.length) {
+        result = [...result, found[0]]
+      }
+      if (counter <= 0) {
+        console.log(`results number: ${result.length}`)
+        res.json(result)
+      }
+    })
   })
 });
 
