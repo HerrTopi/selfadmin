@@ -14,7 +14,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path="/" component={Example} />npm
+          <Route exact path="/" component={Example} />
         </div>
       </Router>
     );
